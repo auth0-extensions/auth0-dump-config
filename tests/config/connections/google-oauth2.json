@@ -1,0 +1,14 @@
+{
+	"enabled_clients": [],
+	"id": "con_Mzt6DHnp2u0PBWtQ",
+	"name": "google-oauth2",
+	"options": {
+		"email": true,
+		"profile": true,
+		"scope": [
+			"email",
+			"profile"
+		]
+	},
+	"strategy": "google-oauth2"
+}

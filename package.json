@@ -1,0 +1,31 @@
+{
+  "name": "auth0-dump-config",
+  "version": "1.0.0",
+  "description": "Auth0 configuration dump tool",
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "winston": "^2.3.0",
+    "request": "^2.79.0",
+    "commander": "^2.9.0"
+  },
+  "devDependencies": {
+    "auth0-deploy-cli": "^1.0.3",
+    "chai": "^3.5.0",
+    "chai-fs": "^1.0.0",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4"
+  },
+  "bin": {
+    "a0dump": "./a0dump.js"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec --timeout 15000 tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xurei/auth0-dump-config.git"
+  },
+  "author": "Olivier Bourdoux",
+  "license": "MIT",
+  "homepage": "https://github.com/xurei/auth0-dump-config#readme"
+}

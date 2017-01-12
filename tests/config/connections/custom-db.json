@@ -1,0 +1,16 @@
+{
+	"enabled_clients": [
+		"jxrjFOC2Naabf2SJWuqcLOZb7XiIcevD",
+		"ML1P2J8WCSwoqyMbXxoAAYzhsNwvW3uV"
+	],
+	"id": "con_WPqe49wKuME424FT",
+	"name": "custom-db",
+	"options": {
+		"mfa": {
+			"active": true,
+			"return_enroll_settings": true
+		},
+		"brute_force_protection": true
+	},
+	"strategy": "auth0"
+}
