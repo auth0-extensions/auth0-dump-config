@@ -109,9 +109,13 @@ describe('auth0-dump-config', function() {
 			expect(out.status).to.be.equal(0);
 			
 			out = a0deploy("dump_deployable");
-			console.log(`${out.stdout}`);
-			console.log(`${out.stderr}`);
+			var stdout = `${out.stdout}`;
+			var stderr = `${out.stderr}`;
+			console.log(stdout);
+			console.log(stderr);
 			expect(out.status).to.be.equal(0);
+			expect(stdout).to.not.contain("Error");
+			expect(stderr).to.not.contain("Error");
 			
 			/*function filesAreIdentical(file1, file2) {
 				var d1 = fs.readFileSync(file1, 'utf8');
