@@ -102,7 +102,7 @@ authenticate(config)
 	var getConnections = getjson('connections').then(writeConnections());
 	var getClients = getjson('clients')
 	.then((clients) => clients.filter((c) => c.name != "All Applications"))
-	//.then((clients) => clients.filter((c) => c.client_id != config.AUTH0_CLIENT_ID))
+	.then((clients) => clients.filter((c) => c.client_id != config.AUTH0_CLIENT_ID))
 	.then(writeFiles('clients'));
 	var getRules = getjson('rules').then(writeFiles('rules'));
 	

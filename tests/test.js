@@ -8,7 +8,6 @@ chai.use(require('chai-fs'));
 //----------------------------------------------------------------------------------------------------------------------
 
 const EXPORTS = __dirname+'/exports';
-const CONFIG = __dirname+'/config';
 const CREDENTIALS = __dirname+'/a0deploy_config.json';
 const WRONGCREDENTIALS = __dirname+'/a0deploy_config_wrong.json';
 
@@ -95,6 +94,17 @@ describe('auth0-dump-config', function() {
 			expect(path.join(exportPath,'clients')).to.be.a.path();
 			expect(path.join(exportPath,'rules')).to.be.a.path();
 			expect(path.join(exportPath,'database-connections')).to.be.a.path();
+			[
+				'clients/App2.json',
+				'clients/Default App.json',
+				//'clients/Deploy client.json',
+				'clients/Non-interactive.json',
+				'rules',
+				'database-connections/custom-db/login.js',
+					
+			].forEach((f) => {
+				expect(path.join(exportPath,f)).to.be.a.path();
+			});
 			
 			//FIXME Pages dump not implemented
 			//expect(path.join(exportPath,'pages')).to.be.a.path();
@@ -114,29 +124,8 @@ describe('auth0-dump-config', function() {
 			console.log(stdout);
 			console.log(stderr);
 			expect(out.status).to.be.equal(0);
-			expect(stdout).to.not.contain("Error");
-			expect(stderr).to.not.contain("Error");
-			
-			/*function filesAreIdentical(file1, file2) {
-				var d1 = fs.readFileSync(file1, 'utf8');
-				var d2 = fs.readFileSync(file2, 'utf8');
-				
-				expect(d1).to.be.equal(d2);
-			}
-			
-			function checkFolder(folderName) {
-				return fs.readdirSync(path.join(CONFIG, folderName))
-				.filter((f) => f.endsWith('.json'))
-				.forEach((f) => {
-					var configFile = path.join(CONFIG, folderName, f);
-					var exportedFile = path.join(EXPORTS, folderName, f);
-					
-					expect(exportedFile).to.be.a.path(exportedFile + ' does not exists');
-					filesAreIdentical(configFile, exportedFile)
-				});
-			}
-			
-			checkFolder('clients');*/
+			expect(stdout).to.not.contain("StackTrace");
+			expect(stderr).to.not.contain("StackTrace");
 		});
 	});
 });
