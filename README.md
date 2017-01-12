@@ -1,6 +1,8 @@
 # auth0-dump-config
 Auth0 configuration dump tool
 
+[![wercker status](https://app.wercker.com/status/9c3801d9c1c740834c61da5a925d4ca9/s/master "wercker status")](https://app.wercker.com/project/byKey/9c3801d9c1c740834c61da5a925d4ca9)
+
 Command line tool for dumping your configuration to Auth0.
 The dump follows the directory structure required by [auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli).
 
