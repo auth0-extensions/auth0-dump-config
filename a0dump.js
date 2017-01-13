@@ -50,15 +50,36 @@ function getjson(entityName) {
 }
 //----------------------------------------------------------------------------------------------------------------------
 
-function writeFiles(dir) {
+function writeRules() {
+	return function(json) {
+		var jsonToWrite = [];
+		mkdirp(path.join(DIR,'rules'));
+		for (let item of json) {
+			item = Object.keys(item).sort().reduce((r, k) => {r[k] = item[k]; return r}, {});
+			var name = item.name;
+			var filePath = path.join(DIR, 'rules', name+".js");
+			fs.writeFileSync(filePath, item.script);
+			winston.info(" - Wrote", 'rules', name+".js");
+			
+			var itemToWrite = Object.assign({}, item);
+			delete itemToWrite.script;
+			jsonToWrite.push(itemToWrite);
+		}
+		
+		return writeFiles('rules')(jsonToWrite);
+	}
+}
+
+
+function writeFiles(dir, extension = '.json') {
 	mkdirp(path.join(DIR,dir));
 	return function(json) {
 		for (let item of json) {
 			item = Object.keys(item).sort().reduce((r, k) => {r[k] = item[k]; return r}, {});
 			var name = item.name;
-			var filePath = path.join(DIR, dir, name+".json");
+			var filePath = path.join(DIR, dir, name+extension);
 			fs.writeFileSync(filePath, JSON.stringify(item,null,'\t'));
-			winston.info(" - Wrote", dir, name+".json");
+			winston.info(" - Wrote", dir, name+extension);
 		}
 	}
 }
@@ -99,12 +120,14 @@ winston.info("Dumping configuration to "+DIR);
 authenticate(config)
 .then((token) => {TOKEN = token})
 .then(() => {
-	var getConnections = getjson('connections').then(writeConnections());
+	var getConnections = getjson('connections')
+		.then(writeConnections());
 	var getClients = getjson('clients')
-	.then((clients) => clients.filter((c) => c.name != "All Applications"))
-	.then((clients) => clients.filter((c) => c.client_id != config.AUTH0_CLIENT_ID))
-	.then(writeFiles('clients'));
-	var getRules = getjson('rules').then(writeFiles('rules'));
+		.then((clients) => clients.filter((c) => c.name != "All Applications"))
+		.then((clients) => clients.filter((c) => c.client_id != config.AUTH0_CLIENT_ID))
+		.then(writeFiles('clients'));
+	var getRules = getjson('rules')
+		.then(writeRules());
 	
 	return Promise.all([getConnections, getClients, getRules])
 })
