@@ -1,6 +1,6 @@
 {
   "name": "auth0-dump-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Auth0 configuration dump tool",
   "dependencies": {
     "mkdirp": "^0.5.1",
