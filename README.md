@@ -6,6 +6,11 @@ Auth0 configuration dump tool
 Command line tool for dumping your configuration to Auth0.
 The dump follows the directory structure required by [auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli).
 
+## Installation
+```bash
+npm install -g auth0-dump-config
+```
+
 ## Setup
 You need a configured client on Auth0 and a config file to run the tool. 
 1. Create a deploy client : see [auth0-deploy-cli README](https://github.com/auth0/auth0-deploy-cli/blob/master/README.md).
