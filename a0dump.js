@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#! /usr/bin/env node
 
 const request = require('request');
 const fs = require('fs');
@@ -135,3 +135,4 @@ authenticate(config)
 	winston.error(e);
 	process.exit(1);
 });
+
