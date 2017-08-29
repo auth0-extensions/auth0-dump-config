@@ -1,6 +1,7 @@
-#!/usr/bin/node
+#! /usr/bin/env node
 
 const request = require('request');
+const HttpsProxyAgent = require('https-proxy-agent');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp').sync;
@@ -25,13 +26,17 @@ mkdirp(DIR);
 //----------------------------------------------------------------------------------------------------------------------
 
 function getjson(entityName) {
+        const proxy = process.env.http_proxy;
+        var agent = proxy ? new HttpsProxyAgent(proxy) : undefined;
+
 	return new Promise((resolve, reject) => {
 		request({
 			url: 'https://'+config.AUTH0_DOMAIN+'/api/v2/'+entityName,
 			headers: {
 				'Authorization': 'Bearer '+TOKEN,
 				'Cache-Control': 'no-cache',
-			}
+			},
+                        agent
 		},
 		function (error, response, body) {
 			if (error) {
@@ -135,3 +140,4 @@ authenticate(config)
 	winston.error(e);
 	process.exit(1);
 });
+
