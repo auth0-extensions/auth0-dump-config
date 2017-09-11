@@ -24,9 +24,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xurei/auth0-dump-config.git"
+    "url": "git+https://github.com/auth0-extensions/auth0-dump-config.git"
   },
   "author": "Olivier Bourdoux",
   "license": "MIT",
-  "homepage": "https://github.com/xurei/auth0-dump-config#readme"
+  "homepage": "https://github.com/auth0-extensions/auth0-dump-config#readme"
 }
