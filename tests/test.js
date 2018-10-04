@@ -10,8 +10,9 @@ chai.use(require('chai-fs'));
 const EXPORTS = __dirname+'/exports';
 const CREDENTIALS = __dirname+'/a0deploy_config.json';
 const WRONGCREDENTIALS = __dirname+'/a0deploy_config_wrong.json';
+const SECRET = 'your_secret';
 
-function a0dump(exportSubDir = 'default', credentials = CREDENTIALS) {
+function a0dump(exportSubDir = 'default', credentials = CREDENTIALS, secret) {
 	var args = [__dirname+'/../a0dump.js'];
 	if (credentials) {
 		args.push('-c');
@@ -20,6 +21,10 @@ function a0dump(exportSubDir = 'default', credentials = CREDENTIALS) {
 	if (exportSubDir) {
 		args.push('-o');
 		args.push(path.join(EXPORTS, exportSubDir));
+	}
+	if (secret) {
+		args.push('-x');
+		args.push(secret);
 	}
 	return child_process.spawnSync('node', args);
 }
@@ -80,6 +85,10 @@ describe('auth0-dump-config', function() {
 		it('should fail if the credentials are wrong', function () {
 			var out = a0dump('wrong_creds', WRONGCREDENTIALS);
 			expect(out.status).to.not.be.equal(0);
+		});
+		it('should import data with credentials passed in via command line arg', function () {
+			var out = a0dump('wrong_creds', WRONGCREDENTIALS, SECRET);
+			expect(out.status).to.be.equal(0);
 		});
 		it('should import data with the right structure', function () {
 			var out = a0dump('structure_test');

@@ -12,6 +12,7 @@ const authenticate = require('./lib/auth');
 
 program
 .option('-o,--output_dir <output dir>', 'The directory where the config will be written. See README and online for more info.')
+.option('-x,--secret <secret>', 'The client secret, this allows you to encrypt the secret in your build configuration instead of storing it in a config file')
 .parse(process.argv);
 
 if (!program.output_dir) {
@@ -19,6 +20,17 @@ if (!program.output_dir) {
 }
 
 const config = require( path.isAbsolute(program.config_file) ? program.config_file : path.join(process.cwd(), program.config_file) );
+
+// if a secret was passed in, prefer it over the one in the config
+if(program.secret) {
+	config.AUTH0_CLIENT_SECRET = program.secret;
+}
+
+// if there is no secret, error
+if (!config.AUTH0_CLIENT_SECRET) {
+	program.printHelpAndExit('Must include client secret in config or pass it in via command line option');
+}
+
 const DIR = path.isAbsolute(program.output_dir) ? program.output_dir : path.join(process.cwd(), program.output_dir);
 var TOKEN = null;
 
