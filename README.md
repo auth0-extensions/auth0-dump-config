@@ -1,10 +1,10 @@
-# auth0-dump-config
-Auth0 configuration dump tool
+# auth0-dump-config - DEPRECATED!
 
-[![CircleCI](https://circleci.com/gh/auth0-extensions/auth0-dump-config.svg?style=svg)](https://circleci.com/gh/auth0-extensions/auth0-dump-config)
 
-Command line tool for dumping your configuration to Auth0.
-The dump follows the directory structure required by [auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli).
+> The functionionality from the project has been rolled into [auth0-deploy-cli](https://github.com/auth0/auth0-deploy-cli) as `a0deploy export`. Please see the [options](https://github.com/auth0/auth0-deploy-cli#cli-options) on that repo.
+
+Auth0 configuration dump tool. Command line tool for dumping your configuration to Auth0.
+
 
 ## Installation
 ```bash
